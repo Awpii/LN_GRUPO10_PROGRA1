@@ -7,7 +7,7 @@ RUTA_PRESTAMOS = 'data/loans.txt'
 
 def cargar_json(ruta): #Carga datos desde JSON
     try:
-        with open(ruta, 'r', encoding='utf-8') as archivo: #Lee el JSON en python
+        with open(ruta, 'r', encoding = 'utf-8') as archivo: #Lee el JSON en python
             return json.load(archivo)
     except FileNotFoundError: #Devuelve una matriz si no hay archivo
         return []
@@ -16,7 +16,7 @@ def cargar_json(ruta): #Carga datos desde JSON
 
 def guardar_json(ruta, datos): #Guarda lista de diccionarios en JSON
     try:
-        with open(ruta, 'w', encoding='utf-8') as archivo: #Escribe el dump a archivo json con indent=2 para para que se lea mejor y ensure_ascii = False para que no moleste por las tildes
+        with open(ruta, 'w', encoding = 'utf-8') as archivo: #Escribe el dump a archivo json con indent=2 para para que se lea mejor y ensure_ascii = False para que no moleste por las tildes
             json.dump(datos, archivo, indent = 2, ensure_ascii = False)
             return True
     except IOError:
@@ -37,7 +37,7 @@ def guardar_usuarios(usuarios):
 def cargar_prestamos(): #Lee el archivo de prestamos (loans.txt) y lo convierte en matriz de diccionarios
     matriz_prestamos = []
     try:
-        with open(RUTA_PRESTAMOS, 'r', encoding='utf-8') as archivo: #Lee el archivo txt y lo carga como lista
+        with open(RUTA_PRESTAMOS, 'r', encoding = 'utf-8') as archivo: #Lee el archivo txt y lo carga como lista
             lineas = archivo.readlines()
             claves = ("ID_Prestamo", "ID_Usuario", "ID_Libros", "Fecha_Prestamo", "Fecha_Devolucion_Prevista", "Fecha_Devolucion_Real", "Estado_Prestamo") #Diccionario para mappear los IDs de los prestamos
             matriz_prestamos = list(map(lambda linea: dict(zip(claves, linea.strip().split('|'))),lineas)) #Convierte lineas a diccionario con zip y map
@@ -54,7 +54,7 @@ def guardar_prestamos(matriz_prestamos):
         linea = "|".join(valores) #Con el join lo pongo todo separado por pipes
         lineas_a_escribir.append(linea + "\n")
     try:
-        with open(RUTA_PRESTAMOS, 'w', encoding='utf-8') as archivo: #Se guarda todo en el archivo
+        with open(RUTA_PRESTAMOS, 'w', encoding = 'utf-8') as archivo: #Se guarda todo en el archivo
             archivo.writelines(lineas_a_escribir)
     except IOError as e:
         raise Exception(f"No se pudo guardar el archivo de préstamos: {e}") #Por si hay errores en el guardado, i.e. si el archivo ya está abierto
