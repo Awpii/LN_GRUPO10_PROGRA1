@@ -1,8 +1,7 @@
 import colorama
 from . import crud_books, crud_users, crud_loans
 
-def mostrar_menu():
-    #Mostrar el menu principal, colorama para que quede flama. Tupla de strings y joins para el print, queda joya
+def mostrar_menu():     #Mostrar el menu principal, colorama para que quede flama. Tupla de strings y joins para el print, queda joya
     menu_items = (
         f"{colorama.Fore.YELLOW}====================================================",
         "           Sistema de Gestión de Biblioteca",
@@ -26,10 +25,8 @@ def mostrar_menu():
     print("\n".join(menu_items))
 
 def ejecutar_programa(): #Ejecuta el loop del menu para mostrar las opciones durante la navegacion
-    colorama.init(autoreset=True)
-    
-    #Diccionario para mappear funciones a opciones del menu y lambbdas para funciones con argumentos especificos, me dio fiaca usar IF/ELSE
-    opciones = {
+    colorama.init(autoreset = True)
+    opciones = {     #Diccionario para mappear funciones a opciones del menu y lambbdas para funciones con argumentos especificos, me dio fiaca usar IF/ELSE
         "1": crud_users.registrar_usuario,
         "2": crud_users.eliminar_usuario,
         "3": crud_users.ver_usuarios,
@@ -38,8 +35,8 @@ def ejecutar_programa(): #Ejecuta el loop del menu para mostrar las opciones dur
         "6": crud_books.ver_libros,
         "7": crud_loans.registrar_prestamo,
         "8": crud_loans.modificar_prestamo,
-        "9": lambda: crud_loans.ver_prestamos(solo_activos=True),
-        "10": lambda: crud_loans.ver_prestamos(solo_activos=False),
+        "9": lambda: crud_loans.ver_prestamos(solo_activos = True),
+        "10": lambda: crud_loans.ver_prestamos(solo_activos = False),
     }
 
     terminar = False #Para controlar la salida del loop

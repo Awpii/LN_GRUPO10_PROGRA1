@@ -29,7 +29,7 @@ def generar_nuevo_id(lista_de_dicts, prefijo):#Genera IDs incrementales
 def obtener_fecha_actual_str(): #Funcioncita pa sacar la fecha actual con datetime, el profe dijo que podiamos usar esta lib
     return datetime.now().strftime('%d/%m/%Y')
 
-def calcular_fecha_devolucion_str(dias=15): #Calcula la fecha de devolucion del libro haciendo una suma, tengo que descubrir como setear la cantidad de dias
+def calcular_fecha_devolucion_str(dias = 15): #Calcula la fecha de devolucion del libro haciendo una suma, tengo que descubrir como setear la cantidad de dias
     fecha_devolucion = datetime.now() + timedelta(days = dias)
     return fecha_devolucion.strftime('%d/%m/%Y') 
 

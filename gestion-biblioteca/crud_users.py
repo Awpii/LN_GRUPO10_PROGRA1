@@ -1,8 +1,7 @@
 from . import gestion_datos
 from . import utils as utilidades
 
-def registrar_usuario():
-    #Pide datos y crea usuarios en user.json
+def registrar_usuario(): #Pide datos y crea usuarios en user.json
     print("\n--- Registro de Nuevo Usuario ---")
     nombre = input("Nombre: ").strip().capitalize()
     apellido = input("Apellido: ").strip().capitalize()
@@ -26,14 +25,13 @@ def registrar_usuario():
     else:
         utilidades.imprimir_error("Todos los campos son obligatorios.")
 
-def eliminar_usuario():
-    #Eliminar un usuario por ID, siempre que NO TENGA PRESTAMOS ACTIVOS
+def eliminar_usuario(): #Eliminar un usuario por ID, siempre que NO TENGA PRESTAMOS ACTIVOS
     print("\n--- Eliminar Usuario ---")
     id_usuario = input("Ingrese el ID del usuario a eliminar (ej. U001): ").strip().upper()
     
     if not utilidades.validar_id(id_usuario, 'usuario'):
         prestamos = gestion_datos.cargar_prestamos()
-        prestamos_activos = list(filter(lambda p:['ID_Usuario'] == id_usuario and p['Estado_Prestamo'] == 'Activo', prestamos))
+        prestamos_activos = list(filter(lambda p:['ID_Usuario'] == id_usuario and p['Estado_Prestamo'] == 'Activo', prestamos)) #Buscar prestamos ACTIVOS por usuario
         
     if not prestamos_activos:
         usuarios = gestion_datos.cargar_usuarios()
@@ -50,14 +48,13 @@ def eliminar_usuario():
     else:
         utilidades.imprimir_error("Formato de ID inválido.")
 
-def ver_usuarios():
-    #Muesra lista de usuarios por apellido
+def ver_usuarios(): #Muesra lista de usuarios por apellido
     print("\n--- Lista de Usuarios ---")
     usuarios = gestion_datos.cargar_usuarios()
     if not usuarios:
         utilidades.imprimir_advertencia("No hay usuarios registrados.")
     else:
-        usuarios_ordenados = sorted(usuarios, key=lambda usuario: usuario['Apellido'])
+        usuarios_ordenados = sorted(usuarios, key = lambda usuario: usuario['Apellido'])
         print(f"{'ID':<7} | {'Nombre':<20} | {'Apellido':<20} | {'E-mail':<30} | {'Teléfono':<35}")
         print("-" * 80)
         for u in usuarios_ordenados:
