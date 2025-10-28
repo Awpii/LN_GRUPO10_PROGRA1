@@ -100,7 +100,7 @@ def ver_prestamos(solo_activos = False):
         print(f"{'ID Prestamos':<12} | {'IDs Usuario':<12} | {'ID_Libro': <20} | {'Fecha Prestamo':<20} | {'Fecha Devolucion Prevista':<25} | {'Fecha Devolucion Real':<20}")
         print("-" * 80)
         for p in lista_a_mostrar:
-            print(f"{p['ID_Prestamo']:<5} | {P['ID_Usuario']:<5} | {p['ID_Libros']:<20} | {p['Estado_Prestamo']:<10} | {p['Fecha Prestamo']:<12} | {p['Fecha_Devolucion_Prevista']:12}")
+            print(f"{p['ID_Prestamo']:<5} | {p['ID_Usuario']:<5} | {p['ID_Libros']:<20} | {p['Estado_Prestamo']:<10} | {p['Fecha Prestamo']:<12} | {p['Fecha_Devolucion_Prevista']:12}")
             
 def ver_prestamos_activos():
     ver_prestamos(solo_activos = True) #Para mostrar los prestamos activos solamente
