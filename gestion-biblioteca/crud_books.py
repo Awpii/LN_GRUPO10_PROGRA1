@@ -34,9 +34,9 @@ def eliminar_libro():
             p['Estado_Prestamo'] == 'Activo' and id_libro in p['ID_Libros'] for p in prestamos
         )
         if not prestamo_activo_encontrado:
-            libros = gestion-datos.cargar_libros()
+            libros = gestion_datos.cargar_libros()
             longitud_inicial = len(libros)
-            libros_actualizados = list(filter(lambda l: l['ID_Libro'] != id_libro, libros))
+            libros_actualizados = list(filter(lambda l: l['ID_Libro'] != id_libro, libros)) #Filtra por el libro designado por ID para la eliminación
             if len(libros_actualizados) < longitud_inicial:
                 if gestion_datos.guardar_libros(libros_actualizados):
                     utilidades.imprimir_exito(f"Libro con ID {id_libro} eliminado correctamente.")
@@ -54,7 +54,7 @@ def ver_libros():
     if not libros:
         utilidades.imprimir_advertencia("No hay libros en el inventario.")
     else:
-        libros_ordenados = sorted(libros, key=lambda libro: libro['Titulo'])
+        libros_ordenados = sorted(libros, key = lambda libro: libro['Titulo']) #Ordena los libros por titulo
         print(f"{'ID_Libro':<10} | {'Titulo':<30} | {'Autor':<20} | {'Estado':<12}")
         print("-" * 80)
         for l in libros_ordenados:

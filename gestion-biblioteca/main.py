@@ -2,8 +2,7 @@ import colorama
 from . import crud_books, crud_users, crud_loans
 
 def mostrar_menu():
-    """Imprime el menú principal de opciones usando colorama para el estilo."""
-    # Se usa una tupla de strings y el método .join() para construir el menú
+    #Mostrar el menu principal, colorama para que quede flama. Tupla de strings y joins para el print, queda joya
     menu_items = (
         f"{colorama.Fore.YELLOW}====================================================",
         "           Sistema de Gestión de Biblioteca",
@@ -26,12 +25,10 @@ def mostrar_menu():
     )
     print("\n".join(menu_items))
 
-def ejecutar_programa():
-    """Función principal que ejecuta el bucle del menú y gestiona las opciones."""
+def ejecutar_programa(): #Ejecuta el loop del menu para mostrar las opciones durante la navegacion
     colorama.init(autoreset=True)
     
-    # Se usa un diccionario para mapear opciones a funciones, es más eficiente que un if/elif
-    # Se usan funciones lambda para llamar a ver_prestamos con diferentes argumentos
+    #Diccionario para mappear funciones a opciones del menu y lambbdas para funciones con argumentos especificos, me dio fiaca usar IF/ELSE
     opciones = {
         "1": crud_users.registrar_usuario,
         "2": crud_users.eliminar_usuario,
@@ -45,8 +42,7 @@ def ejecutar_programa():
         "10": lambda: crud_loans.ver_prestamos(solo_activos=False),
     }
 
-    terminar = False
-    # El bucle se controla con la variable booleana 'terminar'
+    terminar = False #Para controlar la salida del loop
     while not terminar:
         mostrar_menu()
         opcion = input("Seleccione una opción: ").strip()
@@ -54,20 +50,15 @@ def ejecutar_programa():
         if opcion == "11":
             terminar = True
         else:
-            # .get() busca la opción en el diccionario. Si no la encuentra, devuelve None.
-            funcion_a_ejecutar = opciones.get(opcion)
+            funcion_a_ejecutar = opciones.get(opcion) #.get para buscar opciones, None si no existe la opcion
             if funcion_a_ejecutar:
                 try:
                     funcion_a_ejecutar()
-                except Exception as e:
-                    # Captura de excepción genérica para errores no esperados
+                except Exception as e: #No podía pensar en que excepciones podian salir asi que puse una generica
                     print(f"{colorama.Fore.RED}Ocurrió un error inesperado: {e}")
             else:
                 print(f"{colorama.Fore.RED}Opción no válida. Por favor, intente de nuevo.")
-    
     print(f"\n{colorama.Fore.MAGENTA}Gracias por usar el sistema. ¡Hasta pronto!")
 
-# Este es el punto de entrada del programa.
-# El código dentro de este if solo se ejecuta cuando el archivo es corrido directamente.
 if __name__ == "__main__":
     ejecutar_programa()

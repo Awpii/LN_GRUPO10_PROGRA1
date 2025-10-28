@@ -2,56 +2,38 @@ import re
 from datetime import datetime, timedelta
 from colorama import Fore, Style
 
-# --- Expresiones Regulares Pre-compiladas para eficiencia ---
-# re.compile() crea un objeto Regex para reutilizar el patrón
-# ^: inicio de la cadena, \d{3}: exactamente 3 dígitos, $: fin de la cadena
+#re.compile pa compilar REGEX de una y no tener que repetir cosas ^: Inicio de string seguido de la letra del ID y \d{3}$: para que solo sean 3 numeros y fin del string
 REGEX_ID_LIBRO = re.compile(r'^L\d{3}$')
 REGEX_ID_USUARIO = re.compile(r'^U\d{3}$')
 REGEX_ID_PRESTAMO = re.compile(r'^P\d{3}$')
 
-def validar_id(id_str, tipo):
-    """Valida un ID usando la expresión regular correspondiente."""
-    # assert se usa para comprobar una condición que debe ser siempre verdadera
-    assert tipo in ('libro', 'usuario', 'prestamo'), "Tipo de ID no válido"
+def validar_id(id_str, tipo): #Validar el ID, por las dudas, seguro sirva para los casos de prueba
+    assert tipo in ('libro', 'usuario', 'prestamo'), "Tipo de ID no válido" #Assert para chequear que sea siempre True
     
-    if tipo == 'libro':
-        # .match() intenta hacer coincidir el patrón desde el inicio del string
+    if tipo == 'libro': #.match para que todo cumpla con el REGEX
         return REGEX_ID_LIBRO.match(id_str)
     if tipo == 'usuario':
         return REGEX_ID_USUARIO.match(id_str)
     if tipo == 'prestamo':
         return REGEX_ID_PRESTAMO.match(id_str)
 
-def generar_nuevo_id(lista_de_dicts, prefijo):
-    """Genera un nuevo ID autoincremental (ej. L007 -> L008)."""
+def generar_nuevo_id(lista_de_dicts, prefijo):#Genera IDs incrementales
     if not lista_de_dicts:
-        # zfill(3) rellena con ceros a la izquierda hasta tener 3 dígitos
-        return f"{prefijo}{'1'.zfill(3)}"
+        return f"{prefijo}{'1'.zfill(3)}" #rellenar con 0s a la izq hasta que sean 3 digitos (i.e. nada de L02 o L2 -> siempre L002)
     
-    # Se define la clave del diccionario a buscar usando f-strings
-    clave_id = f'ID_{"Libro" if prefijo == "L" else "Usuario" if prefijo == "U" else "Prestamo"}'
-    
-    # Se usa map y lambda para extraer los números de los IDs
-    numeros = list(map(lambda item: int(item[clave_id].lstrip(prefijo)), lista_de_dicts))
-    
-    # max() encuentra el número más alto, se le suma 1
-    nuevo_numero = max(numeros) + 1
+    clave_id = f'ID_{"Libro" if prefijo == "L" else "Usuario" if prefijo == "U" else "Prestamo"}' #defino la clave de diccionario para libros
+    numeros = list(map(lambda item: int(item[clave_id].lstrip(prefijo)), lista_de_dicts)) #lambda para sacar ID sin letra y pasar a INT
+    nuevo_numero = max(numeros) + 1 #Numero mas alto + 1
     return f"{prefijo}{str(nuevo_numero).zfill(3)}"
 
-def obtener_fecha_actual_str():
-    """Retorna la fecha actual como string en formato dd/mm/YYYY."""
-    # datetime.now() obtiene la fecha y hora actual
-    # .strftime() formatea el objeto datetime a un string
+def obtener_fecha_actual_str(): #Funcioncita pa sacar la fecha actual con datetime, el profe dijo que podiamos usar esta lib
     return datetime.now().strftime('%d/%m/%Y')
 
-def calcular_fecha_devolucion_str(dias=15):
-    """Calcula la fecha de devolución sumando días a la fecha actual."""
-    # timedelta representa una duración de tiempo
-    fecha_devolucion = datetime.now() + timedelta(days=dias)
-    return fecha_devolucion.strftime('%d/%m/%Y')
+def calcular_fecha_devolucion_str(dias=15): #Calcula la fecha de devolucion del libro haciendo una suma, tengo que descubrir como setear la cantidad de dias
+    fecha_devolucion = datetime.now() + timedelta(days = dias)
+    return fecha_devolucion.strftime('%d/%m/%Y') 
 
-# --- Funciones de Interfaz de Usuario con Colorama ---
-def imprimir_error(mensaje):
+def imprimir_error(mensaje): #Colorama para que los errores sean siempre rojos, mensajes siempre verdes y warnings siempre amarillos
     print(f"{Fore.RED}[ERROR] {mensaje}{Style.RESET_ALL}")
 
 def imprimir_exito(mensaje):

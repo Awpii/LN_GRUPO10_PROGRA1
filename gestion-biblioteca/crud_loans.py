@@ -19,7 +19,7 @@ def registrar_prestamo():
             
             for id_l in ids_libros_list:
                 if not error_encontrado:
-                    libro_encontrado = next(filter(lambda l: l['ID_Libro'] == id_l, libros), None)
+                    libro_encontrado = next(filter(lambda l: l['ID_Libro'] == id_l, libros), None) #Busca el libro por ID, None si no lo encuentra
                     if libro_encontrado is None:
                         utilidades.imprimir_error(f"El libro con ID {id_l} no existe.")
                         error_encontrado = True
@@ -61,7 +61,7 @@ def modificar_prestamo():
     if utilidades.validar_id(id_prestamo, 'prestamo'):
         prestamos = gestion_datos.cargar_prestamos()
         libros = gestion_datos.cargar_libros()
-        prestamo_a_modificar = next(filter(lambda p: p['ID_Prestamo'] == id_prestamo, prestamos), None)
+        prestamo_a_modificar = next(filter(lambda p: p['ID_Prestamo'] == id_prestamo, prestamos), None) #Mismo que arriba, busca por ID y devuelve None si no lo encuentra
         
         if prestamo_a_modificar:
             if prestamo_a_modificar['Estado_Prestamo'] != 'Devuelto':
@@ -103,7 +103,7 @@ def ver_prestamos(solo_activos = False):
             print(f"{p['ID_Prestamo']:<5} | {P['ID_Usuario']:<5} | {p['ID_Libros']:<20} | {p['Estado_Prestamo']:<10} | {p['Fecha Prestamo']:<12} | {p['Fecha_Devolucion_Prevista']:12}")
             
 def ver_prestamos_activos():
-    ver_prestamos(solo_activos = True)
+    ver_prestamos(solo_activos = True) #Para mostrar los prestamos activos solamente
 
 def ver_historial_prestamos():
-    ver_prestamos(solo_activos = False)
+    ver_prestamos(solo_activos = False) #Para mostrar TODOS los prestamos en el historial

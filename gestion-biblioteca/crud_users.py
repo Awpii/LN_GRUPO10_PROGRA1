@@ -1,7 +1,6 @@
 from . import gestion_datos
 from . import utils as utilidades
 
-# ... (Las funciones registrar_usuario y eliminar_usuario no cambian) ...
 def registrar_usuario():
     #Pide datos y crea usuarios en user.json
     print("\n--- Registro de Nuevo Usuario ---")
