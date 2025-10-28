@@ -1,5 +1,5 @@
 import colorama
-from gestion_biblioteca import crud_libros, crud_usuarios, crud_prestamos
+from . import crud_books, crud_users, crud_loans
 
 def mostrar_menu():
     """Imprime el menú principal de opciones usando colorama para el estilo."""
@@ -33,16 +33,16 @@ def ejecutar_programa():
     # Se usa un diccionario para mapear opciones a funciones, es más eficiente que un if/elif
     # Se usan funciones lambda para llamar a ver_prestamos con diferentes argumentos
     opciones = {
-        "1": crud_usuarios.registrar_usuario,
-        "2": crud_usuarios.eliminar_usuario,
-        "3": crud_usuarios.ver_usuarios,
-        "4": crud_libros.registrar_libro,
-        "5": crud_libros.eliminar_libro,
-        "6": crud_libros.ver_libros,
-        "7": crud_prestamos.registrar_prestamo,
-        "8": crud_prestamos.modificar_prestamo,
-        "9": lambda: crud_prestamos.ver_prestamos(solo_activos=True),
-        "10": lambda: crud_prestamos.ver_prestamos(solo_activos=False),
+        "1": crud_users.registrar_usuario,
+        "2": crud_users.eliminar_usuario,
+        "3": crud_users.ver_usuarios,
+        "4": crud_books.registrar_libro,
+        "5": crud_books.eliminar_libro,
+        "6": crud_books.ver_libros,
+        "7": crud_loans.registrar_prestamo,
+        "8": crud_loans.modificar_prestamo,
+        "9": lambda: crud_loans.ver_prestamos(solo_activos=True),
+        "10": lambda: crud_loans.ver_prestamos(solo_activos=False),
     }
 
     terminar = False
