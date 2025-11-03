@@ -12,10 +12,10 @@ def registrar_libro():
         nuevo_id = utilidades.generar_nuevo_id(libros, 'L')
         nuevo_libro = {
             "ID_Libro": nuevo_id,
-            "Título": titulo,
+            "Titulo": titulo,
             "Autor": autor,
             "Estado": "Disponible",
-            "Fecha_Registro": utilidades.obtener_fecha_actual_str()
+            "Fecha_Ingreso": utilidades.obtener_fecha_actual_str()
         }
         libros.append(nuevo_libro)
         if gestion_datos.guardar_libros(libros):

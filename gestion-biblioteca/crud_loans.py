@@ -2,7 +2,6 @@ from . import gestion_datos
 from . import utils as utilidades
 
 def registrar_prestamo():
-    #Registrar prestamo nuevo con usuario de uno o varios libros
     print("\n--- Registrar nuevo préstamo ---")
     id_usuario = input("Ingrese el ID del usuario (ej. U001): ").strip().upper()
     
@@ -35,6 +34,7 @@ def registrar_prestamo():
                 nuevo_id_prestamo = utilidades.generar_nuevo_id(prestamos, 'P')
                 nuevo_prestamo = {
                     "ID_Prestamo": nuevo_id_prestamo,
+                    "ID_Usuario": id_usuario,
                     "ID_Libros": ",".join(ids_libros_list),
                     "Fecha_Prestamo": utilidades.obtener_fecha_actual_str(),
                     "Fecha_Devolucion_Prevista": utilidades.calcular_fecha_devolucion_str(),
@@ -97,10 +97,10 @@ def ver_prestamos(solo_activos = False):
     if not lista_a_mostrar:
         utilidades.imprimir_advertencia("No hay préstamos para mostrar.")
     else:
-        print(f"{'ID Prestamos':<12} | {'IDs Usuario':<12} | {'ID_Libro': <20} | {'Fecha Prestamo':<20} | {'Fecha Devolucion Prevista':<25} | {'Fecha Devolucion Real':<20}")
+        print(f"{'ID Préstamo':<12} | {'ID Usuario':<12} | {'IDs Libros':<20} | {'Estado':<10} | {'F. Préstamo':<15} | {'F. Prevista':<15}")
         print("-" * 80)
         for p in lista_a_mostrar:
-            print(f"{p['ID_Prestamo']:<5} | {p['ID_Usuario']:<5} | {p['ID_Libros']:<20} | {p['Estado_Prestamo']:<10} | {p['Fecha Prestamo']:<12} | {p['Fecha_Devolucion_Prevista']:12}")
+            print(f"{p.get('ID_Prestamo', ''):<12} | {p.get('ID_Usuario', ''):<12} | {p.get('ID_Libros', ''):<20} | {p.get('Estado_Prestamo', ''):<10} | {p.get('Fecha_Prestamo', ''):<15} | {p.get('Fecha_Devolucion_Prevista', ''):<15}")
             
 def ver_prestamos_activos():
     ver_prestamos(solo_activos = True) #Para mostrar los prestamos activos solamente

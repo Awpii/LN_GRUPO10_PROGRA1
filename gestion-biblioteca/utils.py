@@ -37,7 +37,7 @@ def imprimir_error(mensaje): #Colorama para que los errores sean siempre rojos, 
     print(f"{Fore.RED}[ERROR] {mensaje}{Style.RESET_ALL}")
 
 def imprimir_exito(mensaje):
-    print(f"{Fore.GREEN}[ÉXITO] {mensaje}{Style.RESET_ALL}")
+    print(f"{Fore.GREEN}[EXITO] {mensaje}{Style.RESET_ALL}")
 
 def imprimir_advertencia(mensaje):
     print(f"{Fore.YELLOW}[AVISO] {mensaje}{Style.RESET_ALL}")

@@ -29,9 +29,9 @@ def eliminar_usuario(): #Eliminar un usuario por ID, siempre que NO TENGA PRESTA
     print("\n--- Eliminar Usuario ---")
     id_usuario = input("Ingrese el ID del usuario a eliminar (ej. U001): ").strip().upper()
     
-    if not utilidades.validar_id(id_usuario, 'usuario'):
+    if utilidades.validar_id(id_usuario, 'usuario'):
         prestamos = gestion_datos.cargar_prestamos()
-        prestamos_activos = list(filter(lambda p:['ID_Usuario'] == id_usuario and p['Estado_Prestamo'] == 'Activo', prestamos)) #Buscar prestamos ACTIVOS por usuario
+        prestamos_activos = list(filter(lambda p: p['ID_Usuario'] == id_usuario and p['Estado_Prestamo'] == 'Activo', prestamos)) #Buscar prestamos ACTIVOS por usuario
         
     if not prestamos_activos:
         usuarios = gestion_datos.cargar_usuarios()

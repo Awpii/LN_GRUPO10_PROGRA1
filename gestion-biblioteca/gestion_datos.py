@@ -57,4 +57,4 @@ def guardar_prestamos(matriz_prestamos):
         with open(RUTA_PRESTAMOS, 'w', encoding = 'utf-8') as archivo: #Se guarda todo en el archivo
             archivo.writelines(lineas_a_escribir)
     except IOError as e:
-        raise Exception(f"No se pudo guardar el archivo de préstamos: {e}") #Por si hay errores en el guardado, i.e. si el archivo ya está abierto
+        raise Exception(f"No se pudo guardar el archivo de prestamos: {e}") #Por si hay errores en el guardado, i.e. si el archivo ya está abierto

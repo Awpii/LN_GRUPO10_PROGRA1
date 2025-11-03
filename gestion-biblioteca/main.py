@@ -1,25 +1,27 @@
 import colorama
-from . import crud_books, crud_users, crud_loans
+from . import crud_books, crud_users, crud_loans, stats as estadisticas
 
 def mostrar_menu():     #Mostrar el menu principal, colorama para que quede flama. Tupla de strings y joins para el print, queda joya
     menu_items = (
         f"{colorama.Fore.YELLOW}====================================================",
-        "           Sistema de Gestión de Biblioteca",
+        "           Sistema de gestion de bibliotecas 3000X",
         "====================================================",
-        f"{colorama.Fore.CYAN}--- Gestión de Usuarios ---",
-        "  1 - Registrar Usuario",
-        "  2 - Eliminar Usuario",
-        "  3 - Ver todos los Usuarios",
-        f"{colorama.Fore.CYAN}--- Gestión de Libros ---",
-        "  4 - Registrar Libro",
-        "  5 - Eliminar Libro",
-        "  6 - Ver todos los Libros",
-        f"{colorama.Fore.CYAN}--- Gestión de Préstamos ---",
-        "  7 - Registrar Préstamo (con uno o varios libros)",
-        "  8 - Registrar Devolución (Modificar Préstamo)",
-        "  9 - Ver Préstamos Activos",
-        " 10 - Ver Historial de Préstamos",
-        f"{colorama.Fore.RED}\n 11 - Salir",
+        f"{colorama.Fore.CYAN}--- Gestión de usuarios ---",
+        "  1 - Registrar usuario",
+        "  2 - Eliminar usuario",
+        "  3 - Ver todos los usuarios",
+        f"{colorama.Fore.CYAN}--- Gestión de libros ---",
+        "  4 - Registrar libro",
+        "  5 - Eliminar libro",
+        "  6 - Ver todos los libros",
+        f"{colorama.Fore.CYAN}--- Gestión de prestamos ---",
+        "  7 - Registrar prestamo",
+        "  8 - Registrar devolucion (modificar prestamo)",
+        "  9 - Ver prestamos activos",
+        " 10 - Ver historial de prestamos",
+        f"{colorama.Fore.CYAN}--- Estadisticas ---",
+        " 11 - Ver Estadisticas",
+        f"{colorama.Fore.RED}\n 12 - Salir",
         f"{colorama.Fore.YELLOW}===================================================="
     )
     print("\n".join(menu_items))
@@ -37,14 +39,15 @@ def ejecutar_programa(): #Ejecuta el loop del menu para mostrar las opciones dur
         "8": crud_loans.modificar_prestamo,
         "9": lambda: crud_loans.ver_prestamos(solo_activos = True),
         "10": lambda: crud_loans.ver_prestamos(solo_activos = False),
+        "11": estadisticas.mostrar_estadisticas,
     }
 
     terminar = False #Para controlar la salida del loop
     while not terminar:
         mostrar_menu()
-        opcion = input("Seleccione una opción: ").strip()
+        opcion = input("Elija una opcion: ").strip()
 
-        if opcion == "11":
+        if opcion == "12":
             terminar = True
         else:
             funcion_a_ejecutar = opciones.get(opcion) #.get para buscar opciones, None si no existe la opcion
@@ -52,10 +55,10 @@ def ejecutar_programa(): #Ejecuta el loop del menu para mostrar las opciones dur
                 try:
                     funcion_a_ejecutar()
                 except Exception as e: #No podía pensar en que excepciones podian salir asi que puse una generica
-                    print(f"{colorama.Fore.RED}Ocurrió un error inesperado: {e}")
+                    print(f"{colorama.Fore.RED}Hubo un error inesperado: {e}")
             else:
-                print(f"{colorama.Fore.RED}Opción no válida. Por favor, intente de nuevo.")
-    print(f"\n{colorama.Fore.MAGENTA}Gracias por usar el sistema. ¡Hasta pronto!")
+                print(f"{colorama.Fore.RED}Opción invalida, proba de nuevo")
+    print(f"\n{colorama.Fore.MAGENTA}Chau loco")
 
 if __name__ == "__main__":
     ejecutar_programa()
