@@ -43,6 +43,15 @@ def calcular_usuario_mas_activo():
     
     return info_usuario, conteo_maximo
 
+def contador_de_happens(lista_de_ids, happens_actual):
+    if not lista_de_ids:
+        return happens_actual #no hay ocurrencias de ids
+    id_actual = lista_de_ids[0] 
+    
+    happens_actual[id_actual] = happens_actual.get(id_actual, 0) + 1 #llama a la funcion de conteo con la lista y el diccionario actualizados
+    return contador_de_happens(lista_de_ids[1:], happens_actual)
+
+
 def calcular_promedios_devolucion():
     prestamos = gestion_datos.cargar_prestamos()
     

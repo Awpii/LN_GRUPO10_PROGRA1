@@ -61,14 +61,15 @@ def modificar_prestamo():
     if utilidades.validar_id(id_prestamo, 'prestamo'):
         prestamos = gestion_datos.cargar_prestamos()
         libros = gestion_datos.cargar_libros()
-        prestamo_a_modificar = next(filter(lambda p: p['ID_Prestamo'] == id_prestamo, prestamos), None) #Mismo que arriba, busca por ID y devuelve None si no lo encuentra
         
-        if prestamo_a_modificar:
-            if prestamo_a_modificar['Estado_Prestamo'] != 'Devuelto':
+        prestamo_a_cambiar = buscaprestamos_recursivo(prestamos, id_prestamo)
+        
+        if prestamo_a_cambiar:
+            if prestamo_a_cambiar['Estado_Prestamo'] != 'Devuelto':
                 #Actualizar prestamo, liros
-                prestamo_a_modificar['Estado_Prestamo'] = 'Devuelto'
-                prestamo_a_modificar['Fecha_Devolucion_Real'] = utilidades.obtener_fecha_actual_str()
-                ids_libros_devueltos = prestamo_a_modificar['ID_Libros'].split(',')
+                prestamo_a_cambiar['Estado_Prestamo'] = 'Devuelto'
+                prestamo_a_cambiar['Fecha_Devolucion_Real'] = utilidades.obtener_fecha_actual_str()
+                ids_libros_devueltos = prestamo_a_cambiar['ID_Libros'].split(',')
                 for id_l in ids_libros_devueltos:
                     libro_obj = next(filter(lambda l: l['ID_Libro'] == id_l, libros), None)
                     if libro_obj:
@@ -85,7 +86,17 @@ def modificar_prestamo():
             utilidades.imprimir_error(f"No se encontró un préstamo con el ID {id_prestamo}.")
     else:
         utilidades.imprimir_error(f"El ID de prestamo {id_prestamo} es inválido.")
-
+        
+def buscaprestamos_recursivo(lista_prestamos, id_buscar):
+    if not lista_prestamos: #lista vacia, gil, para que buscas?
+        return None
+    
+    prestamo_buscado = lista_prestamos[0]
+    if prestamo_buscado['ID_Prestamo'] == id_buscar: #si se encuentra en el primer elemento
+        return prestamo_buscado
+    else: #mala suerte y a seguir buscando
+        return buscaprestamos_recursivo(lista_prestamos[1:], id_buscar)
+    
 def ver_prestamos(solo_activos = False):
     #Mostrar prestamos en su totalidad
     titulo = "Prestamos Activos" if solo_activos else "Historial de Prestamos"

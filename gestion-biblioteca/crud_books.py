@@ -46,16 +46,26 @@ def eliminar_libro():
             utilidades.imprimir_error(f"No se puede eliminar el libro {id_libro}. El libro se encuentra prestado.")
     else:
         utilidades.imprimir_error("Formato de ID inválido.")
+
+def libros_recursividad(lista_de_libros):
+    
+    if not lista_de_libros:
+        return
+    else:
+        libro_actual = lista_de_libros[0] 
+        print(f"{libro_actual.get('ID_Libro', ''):<10} | {libro_actual.get('Titulo', ''):<40} | {libro_actual.get('Autor', ''):<25} | {libro_actual.get('Estado', ''):<12}") #se saca el primer libro de la lista
         
+        libros_recursividad(lista_de_libros[1:]) #reinvoco la funcion de nuevo con el slice
+
 def ver_libros():
     #Mostrar los libros por titulo.
     print("\n--- Inventario de Libros ---")
     libros = gestion_datos.cargar_libros()
+    
     if not libros:
         utilidades.imprimir_advertencia("No hay libros en el inventario.")
     else:
         libros_ordenados = sorted(libros, key = lambda libro: libro['Titulo']) #Ordena los libros por titulo
         print(f"{'ID_Libro':<10} | {'Titulo':<30} | {'Autor':<20} | {'Estado':<12}")
         print("-" * 80)
-        for l in libros_ordenados:
-            print(f"{l['ID_Libro']:<10} | {l['Titulo']:<30} | {l['Autor']:<20} | {l['Estado']:<12}")
+        libros_recursividad(libros_ordenados)
