@@ -1,5 +1,8 @@
 import colorama
-from . import crud_books, crud_users, crud_loans, stats as estadisticas
+import crud_books
+import crud_users
+import crud_loans
+import stats as estadisticas
 
 def mostrar_menu():     #Mostrar el menu principal, colorama para que quede flama. Tupla de strings y joins para el print, queda joya
     menu_items = (

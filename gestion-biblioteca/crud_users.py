@@ -1,5 +1,5 @@
-from . import gestion_datos
-from . import utils as utilidades
+import gestion_datos
+import utils as utilidades
 
 def registrar_usuario(): #Pide datos y crea usuarios en user.json
     print("\n--- Registro de Nuevo Usuario ---")

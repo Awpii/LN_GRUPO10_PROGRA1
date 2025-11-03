@@ -1,5 +1,5 @@
-from . import gestion_datos
-from . import utilidades
+import gestion_datos
+import utils as utilidades
 from datetime import datetime
 
 def calcular_libro_mas_prestado():

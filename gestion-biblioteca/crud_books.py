@@ -1,5 +1,5 @@
-from . import gestion_datos
-from . import utils as utilidades
+import gestion_datos
+import utils as utilidades
 
 def registrar_libro():
     #Pedir datos y crear libro nuevo en books.json
