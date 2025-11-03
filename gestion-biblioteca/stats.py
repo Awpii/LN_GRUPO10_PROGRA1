@@ -14,10 +14,7 @@ def calcular_libro_mas_prestado():
     if not todos_los_libros_prestados:
         return None, 0
 
-    conteo_libros = {}
-    for id_libro in todos_los_libros_prestados:
-        conteo_libros[id_libro] = conteo_libros.get(id_libro, 0) + 1
-        
+    conteo_libros = contador_de_happens(todos_los_libros_prestados, {}) #diccionario vacio como contador
     id_mas_prestado = max(conteo_libros, key = conteo_libros.get) #contar la cantidad de veces que aparece un libro
     conteo_maximo = conteo_libros[id_mas_prestado]
     
