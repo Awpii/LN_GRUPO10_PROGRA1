@@ -5,27 +5,29 @@ import crud_loans
 import stats as estadisticas
 
 def mostrar_menu():     #Mostrar el menu principal, colorama para que quede flama. Tupla de strings y joins para el print, queda joya
+    print("\n" * 50)
     menu_items = (
-        f"{colorama.Fore.YELLOW}====================================================",
-        "           Sistema de gestion de bibliotecas 3000X",
+        f"{colorama.Fore.GREEN}====================================================",
+        "           Sistema de gestion de bibliotecas 3000X           ",
         "====================================================",
-        f"{colorama.Fore.CYAN}--- Gestión de usuarios ---",
+        f"{colorama.Fore.WHITE}--- Gestión de usuarios ---",
         "  1 - Registrar usuario",
         "  2 - Eliminar usuario",
         "  3 - Ver todos los usuarios",
-        f"{colorama.Fore.CYAN}--- Gestión de libros ---",
+        f"{colorama.Fore.WHITE}--- Gestión de libros ---",
         "  4 - Registrar libro",
         "  5 - Eliminar libro",
         "  6 - Ver todos los libros",
-        f"{colorama.Fore.CYAN}--- Gestión de prestamos ---",
+        f"{colorama.Fore.WHITE}--- Gestión de prestamos ---",
         "  7 - Registrar prestamo",
         "  8 - Registrar devolucion (modificar prestamo)",
         "  9 - Ver prestamos activos",
         " 10 - Ver historial de prestamos",
-        f"{colorama.Fore.CYAN}--- Estadisticas ---",
+        f"{colorama.Fore.WHITE}--- Estadisticas ---",
         " 11 - Ver Estadisticas",
-        f"{colorama.Fore.RED}\n 12 - Salir",
-        f"{colorama.Fore.YELLOW}===================================================="
+        f"{colorama.Fore.YELLOW}--- Salida ---",
+        "12 - Salir",
+        f"{colorama.Fore.GREEN}===================================================="
     )
     print("\n".join(menu_items))
 
@@ -61,6 +63,7 @@ def ejecutar_programa(): #Ejecuta el loop del menu para mostrar las opciones dur
                     print(f"{colorama.Fore.RED}Hubo un error inesperado: {e}")
             else:
                 print(f"{colorama.Fore.RED}Opción invalida, proba de nuevo")
+            input(f"\n{colorama.Fore.WHITE}--- Continuar --- (Enter)")
     print(f"\n{colorama.Fore.MAGENTA}Chau loco")
 
 if __name__ == "__main__":
