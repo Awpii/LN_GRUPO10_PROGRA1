@@ -49,10 +49,6 @@ def registrar_prestamo():
                     utilidades.imprimir_exito(f"Prestamo {nuevo_id_prestamo} registrado con éxito.")
                 except Exception as e:
                     utilidades.imprimir_error(str(e))
-            else:
-                utilidades.imprimir_error(f"El usuario con ID {id_usuario} no existe.")
-        else:
-            utilidades.imprimir_error("ID de usuario inválido.")
             
 def modificar_prestamo():
     #Modifica prestamos para registrar devoluciones
