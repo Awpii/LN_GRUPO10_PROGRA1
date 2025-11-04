@@ -21,7 +21,8 @@ def mostrar_menu():     #Mostrar el menu principal, colorama para que quede flam
         f"{colorama.Fore.GREEN}--- Gestión de prestamos ---",
         f"{colorama.Fore.WHITE}7 - Registrar prestamo",
         f"{colorama.Fore.WHITE}8 - Registrar devolucion (modificar prestamo)",
-        f"{colorama.Fore.WHITE}9 - Ver prestamos activos",
+        f"{colorama.Fore.WHITE}9 
+        - Ver prestamos activos",
         f"{colorama.Fore.WHITE}10 - Ver historial de prestamos",
         f"{colorama.Fore.GREEN}--- Estadisticas ---",
         f"{colorama.Fore.WHITE}11 - Ver Estadisticas",
