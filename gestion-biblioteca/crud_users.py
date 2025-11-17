@@ -54,8 +54,8 @@ def ver_usuarios(): #Muesra lista de usuarios por apellido
     if not usuarios:
         utilidades.imprimir_advertencia("No hay usuarios registrados.")
     else:
-        usuarios_ordenados = sorted(usuarios, key = lambda usuario: usuario['Apellido'])
-        print(f"{'ID':<7} | {'Nombre':<20} | {'Apellido':<20} | {'E-mail':<30} | {'Teléfono':<35}")
-        print("-" * 80)
+        usuarios_ordenados = sorted(usuarios, key = lambda usuario: usuario['ID_Usuario']) #Ordena por ID de usuario
+        print(f"{'ID':<7} | {'Nombre':<20} | {'Apellido':<20} | {'E-mail':<30} | {'Teléfono':<15}")
+        print("-" * 100)
         for u in usuarios_ordenados:
-            print(f"{u['ID_Usuario']:<7} | {u['Nombre']:<20} | {u['Apellido']:<20} | {u['Email']:<30} | {u['Telefono']:<35}")
+            print(f"{u.get('ID_Usuario', ''):<7} | {u.get('Nombre', ''):<20} | {u.get('Apellido', ''):<20} | {u.get('Email', ''):<30} | {u.get('Telefono', ''):<15}")

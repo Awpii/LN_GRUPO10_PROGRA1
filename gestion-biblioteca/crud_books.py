@@ -65,7 +65,7 @@ def ver_libros():
     if not libros:
         utilidades.imprimir_advertencia("No hay libros en el inventario.")
     else:
-        libros_ordenados = sorted(libros, key = lambda libro: libro['Titulo']) #Ordena los libros por titulo
-        print(f"{'ID_Libro':<10} | {'Titulo':<30} | {'Autor':<20} | {'Estado':<12}")
+        libros_ordenados = sorted(libros, key = lambda libro: libro['ID_Libro']) #Ordena los libros por ID.
+        print(f"{'ID_Libro':<10} | {'Titulo':<40} | {'Autor':<25} | {'Estado':<12}")
         print("-" * 80)
         libros_recursividad(libros_ordenados)

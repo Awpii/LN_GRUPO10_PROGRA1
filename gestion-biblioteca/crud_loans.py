@@ -94,18 +94,21 @@ def buscaprestamos_recursivo(lista_prestamos, id_buscar):
         return buscaprestamos_recursivo(lista_prestamos[1:], id_buscar)
     
 def ver_prestamos(solo_activos = False):
-    #Mostrar prestamos en su totalidad
+    #Mostrar prestamos en su totalidad, ordenados por estado.
     titulo = "Prestamos Activos" if solo_activos else "Historial de Prestamos"
     print(f"\n--- {titulo} ---")
     prestamos = gestion_datos.cargar_prestamos()
-    lista_a_mostrar = prestamos
+    
+    lista_a_procesar = prestamos
     if solo_activos:
-        prestamos = list(filter(lambda p: p['Estado_Prestamo'] == 'Activo', prestamos))
-    if not lista_a_mostrar:
+        lista_a_procesar = list(filter(lambda p: p['Estado_Prestamo'] == 'Activo', prestamos))
+
+    if not lista_a_procesar:
         utilidades.imprimir_advertencia("No hay préstamos para mostrar.")
     else:
+        lista_a_mostrar = sorted(lista_a_procesar, key=lambda p: p['Estado_Prestamo']) #Prestamos activos se muestran antes que los demás cuando se ven todos los prestamos.
         print(f"{'ID Préstamo':<12} | {'ID Usuario':<12} | {'IDs Libros':<20} | {'Estado':<10} | {'F. Préstamo':<15} | {'F. Prevista':<15}")
-        print("-" * 80)
+        print("-" * 95)
         for p in lista_a_mostrar:
             print(f"{p.get('ID_Prestamo', ''):<12} | {p.get('ID_Usuario', ''):<12} | {p.get('ID_Libros', ''):<20} | {p.get('Estado_Prestamo', ''):<10} | {p.get('Fecha_Prestamo', ''):<15} | {p.get('Fecha_Devolucion_Prevista', ''):<15}")
             
