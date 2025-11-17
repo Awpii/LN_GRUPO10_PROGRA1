@@ -43,12 +43,19 @@ def registrar_prestamo():
                 prestamos.append(nuevo_prestamo)
                 for libro_obj in libros_a_prestar:
                     libro_obj['Estado'] = 'Prestado'
-                try:
-                    gestion_datos.guardar_prestamos(prestamos)
-                    gestion_datos.guardar_libros(libros)
+                
+                try: #separé los errores para que sea mas facil saber que se rompe
+                    if not gestion_datos.guardar_prestamos(prestamos):
+                        raise Exception("Error al guardar el nuevo préstamo.")
+                    
+                    if not gestion_datos.guardar_libros(libros):
+                        raise Exception("Error al actualizar el estado de los libros.")
+
                     utilidades.imprimir_exito(f"Prestamo {nuevo_id_prestamo} registrado con éxito.")
-                except Exception as e:
-                    utilidades.imprimir_error(str(e))
+
+                except Exception as e: 
+                    utilidades.imprimir_error(f"No se pudo completar el registro del préstamo: {e}")
+                    utilidades.imprimir_advertencia("Los datos pueden haberse cargado mal, revisa los archivos.")
             
 def modificar_prestamo():
     #Modifica prestamos para registrar devoluciones
@@ -71,11 +78,16 @@ def modificar_prestamo():
                     if libro_obj:
                         libro_obj['Estado'] = 'Disponible'
                 try:
-                    gestion_datos.guardar_prestamos(prestamos)
-                    gestion_datos.guardar_libros(libros)
-                    utilidades.imprimir_exito(f"Devolución para el prestamo {id_prestamo} registrada con éxito, el libro se marcara como disponible.")
-                except Exception as e:
-                    utilidades.imprimir_error(str(e))
+                    if not gestion_datos.guardar_prestamos(prestamos):
+                        raise Exception("Error al actualizar el archivo de préstamos.")
+                    
+                    if not gestion_datos.guardar_libros(libros):
+                        raise Exception("Error al actualizar el estado de los libros devueltos.")
+
+                    utilidades.imprimir_exito(f"Devolución para el prestamo {id_prestamo} registrada con éxito.")
+                except Exception as e: #lo mismo que arriba, para separar los errores
+                    utilidades.imprimir_error(f"No se pudo registrar la devolución: {e}")
+                    utilidades.imprimir_advertencia("Revisa los archivos para confirmar que no se haya roto nada.")
             else:
                 utilidades.imprimir_advertencia("Este préstamo ya ha sido devuelto.")
         else:

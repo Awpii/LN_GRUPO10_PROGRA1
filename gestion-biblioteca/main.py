@@ -59,8 +59,11 @@ def ejecutar_programa(): #Ejecuta el loop del menu para mostrar las opciones dur
             if funcion_a_ejecutar:
                 try:
                     funcion_a_ejecutar()
-                except Exception as e: #No podía pensar en que excepciones podian salir asi que puse una generica
-                    print(f"{colorama.Fore.RED}Hubo un error inesperado: {e}")
+                except (ValueError, KeyError) as data_err: #agarro los errores especificos
+                    print(f"{colorama.Fore.RED}Error de datos: {data_err}")
+                    print(f"{colorama.Fore.YELLOW}Por favor, revise la integridad de los archivos .json y .txt.")
+                except Exception as e: #esto es por si se me pasó algo por alto
+                    print(f"{colorama.Fore.RED}Hubo un error inesperado durante la operación: {e}")
             else:
                 print(f"{colorama.Fore.RED}Opción invalida, proba de nuevo")
             input(f"\n{colorama.Fore.WHITE}--- Continuar --- (Enter)")

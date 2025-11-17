@@ -7,23 +7,26 @@ def registrar_usuario(): #Pide datos y crea usuarios en user.json
     apellido = input("Apellido: ").strip().capitalize()
     email = input("E-mail: ").strip().lower()
     
-    if nombre and apellido and email:
-        usuarios = gestion_datos.cargar_usuarios()
-        nuevo_id = utilidades.generar_nuevo_id(usuarios, 'U')
-        nuevo_usuario = {
-            "ID_Usuario": nuevo_id,
-            "Nombre": nombre,
-            "Apellido": apellido,
-            "Email": email,
-            "Telefono": input("Teléfono: ").strip(),
-            "Fecha_Registro": utilidades.obtener_fecha_actual_str()
-        }
-        
+    if not (nombre and apellido and email):
+        utilidades.imprimir_error("Nombre, Apellido y E-mail son campos obligatorios.") #Si falta alguno de los datos hay error especifico (obviamente)
+        return
+
+    usuarios = gestion_datos.cargar_usuarios()
+    nuevo_id = utilidades.generar_nuevo_id(usuarios, 'U')
+    nuevo_usuario = {
+        "ID_Usuario": nuevo_id,
+        "Nombre": nombre,
+        "Apellido": apellido,
+        "Email": email,
+        "Telefono": input("Teléfono: ").strip(),
+        "Fecha_Registro": utilidades.obtener_fecha_actual_str()
+    }
+    
     usuarios.append(nuevo_usuario)
     if gestion_datos.guardar_usuarios(usuarios):
-        utilidades.imprimir_exito(f"Usuario '{nombre} {apellido}' registrado con ID: {nuevo_id}")
+        utilidades.imprimir_exito(f"Usuario '{nombre} {apellido}' registrado con ID: {nuevo_id}") #Si no hay error
     else:
-        utilidades.imprimir_error("Todos los campos son obligatorios.")
+        utilidades.imprimir_error("No se pudo guardar el nuevo usuario en el archivo de datos.") #Si te faltó algo además te tira este error
 
 def eliminar_usuario(): #Eliminar un usuario por ID, siempre que NO TENGA PRESTAMOS ACTIVOS
     print("\n--- Eliminar Usuario ---")
