@@ -11,17 +11,16 @@ def registrar_libro():
         libros = gestion_datos.cargar_libros()
         nuevo_id = utilidades.generar_nuevo_id(libros, 'L')
         nuevo_libro = {
-            "ID_Libro": nuevo_id,
-            "Titulo": titulo,
-            "Autor": autor,
-            "Estado": "Disponible",
-            "Fecha_Ingreso": utilidades.obtener_fecha_actual_str()
+            "ID_Libro": nuevo_id, "Titulo": titulo, "Autor": autor,
+            "Estado": "Disponible", "Fecha_Ingreso": utilidades.obtener_fecha_actual_str()
         }
         libros.append(nuevo_libro)
-        if gestion_datos.guardar_libros(libros):
+        if not gestion_datos.guardar_libros(libros):
+            utilidades.imprimir_error("No se pudo guardar el nuevo libro en el archivo de datos.")
+        else:
             utilidades.imprimir_exito(f"Libro '{titulo}' registrado con ID: {nuevo_id}")
     else:
-        utilidades.imprimir_error("Titulo y Autor son campos obligatorios.")
+        utilidades.imprimir_error("Título y Autor son campos obligatorios.") #Lo mismo que en usuario, error si no agrega todos los campos
         
 def eliminar_libro():
     #Eliminar libro por ID, siempre que NO ESTÉ PRESTADO
@@ -65,7 +64,7 @@ def ver_libros():
     if not libros:
         utilidades.imprimir_advertencia("No hay libros en el inventario.")
     else:
-        libros_ordenados = sorted(libros, key = lambda libro: libro['Titulo']) #Ordena los libros por titulo
-        print(f"{'ID_Libro':<10} | {'Titulo':<30} | {'Autor':<20} | {'Estado':<12}")
+        libros_ordenados = sorted(libros, key = lambda libro: libro['ID_Libro']) #Ordena los libros por ID.
+        print(f"{'ID_Libro':<10} | {'Titulo':<40} | {'Autor':<25} | {'Estado':<12}")
         print("-" * 80)
         libros_recursividad(libros_ordenados)

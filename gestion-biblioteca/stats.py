@@ -85,13 +85,13 @@ def mostrar_estadisticas():
 
     libro, conteo_libro = calcular_libro_mas_prestado()
     if libro:
-        print(f"El libro mas prestado es: '{libro['Titulo']}' por {libro['Autor']} prestado {conteo_libro} veces.")
+        print(f"El libro mas prestado es: '{libro['Titulo']}' por {libro['Autor']} Prestamos: {conteo_libro}.")
     else:
         utilidades.imprimir_advertencia("No hay datos de prestamos de libros")
 
     usuario, conteo_usuario = calcular_usuario_mas_activo()
     if usuario:
-        print(f" El usuario que mas prestamos obtiene es: {usuario['Nombre']} {usuario['Apellido']} con {conteo_usuario} prestamos")
+        print(f"El usuario que mas prestamos obtiene es: {usuario['Nombre']} {usuario['Apellido']} Cantidad: {conteo_usuario}.")
     else:
         utilidades.imprimir_advertencia("No hay datos de prestamos de usuarios.")
 
